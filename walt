@@ -231,7 +231,7 @@ def do_object_puts(left, sleep_amount, options):
         while left[0] > 0:
             left[0] -= 1
             partition = options.part
-            if options.num_partitions:
+            if options.num_partitions > 1:
                 partition = randint(1, int(options.num_partitions))
 
             retry(direct_put_object_c, options.node, partition,
@@ -443,6 +443,7 @@ container server testing.'''.strip('\n')
             ip = parsed[1]
             port = 80
         url_parts = parsed[2].split('/')
+
         if len(url_parts) == 5:
             _, device, options.part, options.account, options.container = \
                 url_parts
